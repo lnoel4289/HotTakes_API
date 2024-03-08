@@ -1,8 +1,8 @@
 const http = require('http');
 const app = require('./app');
 
-// Renvoie la valeur du port ou le boléen false.
-const normalizePort = val => {
+// Normalize port function
+function normalizePort(val) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -16,8 +16,8 @@ const normalizePort = val => {
 const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
-// Log les messages d'exceptions lors du démarrage serveur
-const errorHandler = error => {
+// Error handler function
+function errorHandler(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -35,6 +35,7 @@ const errorHandler = error => {
   }
 };
 
+// module http creates server
 const server = http.createServer(app);
 
 server.on('error', errorHandler);

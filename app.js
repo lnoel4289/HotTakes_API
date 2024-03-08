@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path"); // Module apportant des méthodes pour retourner des url
 const sauceRoutes = require("./routes/sauce");
 const userRoutes = require("./routes/user");
+
 const app = express();
 
 dotenv.config();

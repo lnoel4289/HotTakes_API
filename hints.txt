@@ -1,0 +1,73 @@
+router = express.Router();
+
+    given <root endpoint>
+
+app.<method>(<endpoint>, <callback>)
+
+    égale
+
+app.use(<root endpoint>, router.<method>(<endpoint>, <callback>))
+
+    donc
+
+app.<method1>(<endpoint1>, <callback1>);
+app.<method2>(<endpoint2>, <callback2>);
+
+    égale
+
+app.use(<root endpoint>, routes);
+
+    where
+
+routes = [
+    router.<method1>(<endpoint1>, <callback1>),
+    router.<method2>(<endpoint2>, <callback2>)
+    ]
+
+    or even
+
+routes = [
+    router.<method1>(<endpoint1>, <middleware1>, <middleware2>, <callback1>),
+    router.<method2>(<endpoint2>, <middleware1>, <middleware3>, <callback2>),
+    ]
+
+    where middlewares are executable functions:
+
+middleware1(req, res, next) {
+    <code>
+    next();
+}
+
+middleware2(req, res, next) {
+    try {
+        <code>
+        next()
+    }
+    catch(error) {
+    <code>
+    }
+}
+
+controller.js contient les callbacks par controller
+Exemple:
+
+userCtrl = [
+    signup(req, res) {<code>}, 
+    login(req, res) {<code},
+    ]
+
+    donne
+
+userRoutes = [
+    router.post("/signup", emailValidator, passWordValidator, userCtrl.signup),
+    router.get("login", emailValidator, passWordValidator, userCtrl.login),
+    ]
+
+    donne
+
+app.use("api/auth", userRoutes)
+app.use("api/items, itemsRoutes")
+
+
+
+
