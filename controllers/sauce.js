@@ -40,7 +40,7 @@ exports.createSauce = (req, res) => {
   const sauce = new Sauce({
     ...sauceObject,
     userId: req.auth.userId,
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    imageUrl: `https://${req.get('host')}/images/${req.file.filename}`,
     likes: 0,
     dislikes: 0,
     usersLiked: [],
@@ -63,7 +63,7 @@ exports.createSauce = (req, res) => {
 exports.modifySauce = (req, res) => {
   const sauceObject = req.file ? {
     ...JSON.parse(req.body.sauce),
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    imageUrl: `https://${req.get('host')}/images/${req.file.filename}`
   } : {...req.body};
   delete sauceObject._userId;
 
