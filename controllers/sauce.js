@@ -47,10 +47,10 @@ exports.getOneSauce = (req, res) => {
     });
 };
 
-exports.createSauce = (req, res) => {
-  const sauceObject = JSON.parse(req.body.sauce);
-  delete sauceObject._id;
-  delete sauceObject._userId;
+// exports.createSauce = (req, res) => {
+//   const sauceObject = JSON.parse(req.body.sauce);
+//   delete sauceObject._id;
+//   delete sauceObject._userId;
   // uploadToCloudinary(
   //   // Remplacer ce champ par l'url relative au dossier (via heroku)
   //   `https://guarded-tundra-04476-5a7bab2b1d79.herokuapp.com/images/${req.file.filename}`,
@@ -69,6 +69,31 @@ exports.createSauce = (req, res) => {
   //     });
   //     sauce.save();
   //   })
+//   const sauce = new Sauce({
+//     ...sauceObject,
+//     userId: req.auth.userId,
+//     imageUrl: `https://${req.get('host')}/images/${req.file.filename}`,
+//     likes: 0,
+//     dislikes: 0,
+//     usersLiked: [],
+//     usersDisliked: [],
+//   });
+//   sauce
+//     .save()
+//     .then(() => {
+//       res.status(201).json({
+//         message: "Nouvelle sauce enregistrée !",
+//       });
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error });
+//     });
+// };
+
+exports.createSauce = (req, res) => {
+  const sauceObject = JSON.parse(req.body.sauce);
+  delete sauceObject._id;
+  delete sauceObject._userId;
   const sauce = new Sauce({
     ...sauceObject,
     userId: req.auth.userId,
@@ -76,18 +101,19 @@ exports.createSauce = (req, res) => {
     likes: 0,
     dislikes: 0,
     usersLiked: [],
-    usersDisliked: [],
+    usersDisliked: []
   });
-  sauce
-    .save()
-    .then(() => {
+  sauce.save().then(
+    () => {
       res.status(201).json({
-        message: "Nouvelle sauce enregistrée !",
+        message: 'Nouvelle sauce enregistrée !'
       });
-    })
-    .catch((error) => {
+    }
+  ).catch(
+    (error) => {
       res.status(500).json({ error });
-    });
+    }
+  );
 };
 
 exports.modifySauce = (req, res) => {
