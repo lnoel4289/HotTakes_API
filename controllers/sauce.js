@@ -1,26 +1,25 @@
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
-const multer = require("../middleware/multer-config");
 
 // cloudinary util
-const cloudinary = require("cloudinary").v2;
+// const cloudinary = require("cloudinary").v2;
 
-cloudinary.config({
-  cloud_name: "db4izxstp",
-  api_key: "916193574981994",
-  api_secret: "d3yHm3qb6wdGgVyJYwVyj-MqNOI",
-});
+// cloudinary.config({
+//   cloud_name: "db4izxstp",
+//   api_key: "916193574981994",
+//   api_secret: "d3yHm3qb6wdGgVyJYwVyj-MqNOI",
+// });
 
-const uploadToCloudinary = async (localImagePath, publicId) => {
-  try {
-    const result = await cloudinary.uploader.upload(localImagePath, {
-      public_id: publicId,
-    });
-    return result.secure_url;
-  } catch (err) {
-    console.error(err);
-  }
-};
+// const uploadToCloudinary = async (localImagePath, publicId) => {
+//   try {
+//     const result = await cloudinary.uploader.upload(localImagePath, {
+//       public_id: publicId,
+//     });
+//     return result.secure_url;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
 // END cloudinary util
 
 exports.getAllSauces = (_, res) => {
@@ -73,8 +72,7 @@ exports.createSauce = (req, res) => {
   const sauce = new Sauce({
     ...sauceObject,
     userId: req.auth.userId,
-    imageUrl: ``,
-    // imageUrl: result,
+    imageUrl: `something`,
     likes: 0,
     dislikes: 0,
     usersLiked: [],
