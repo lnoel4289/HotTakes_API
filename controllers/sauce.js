@@ -72,7 +72,7 @@ exports.createSauce = (req, res) => {
   const sauce = new Sauce({
     ...sauceObject,
     userId: req.auth.userId,
-    imageUrl: `something`,
+    imageUrl: `https://${req.get('host')}/images/${req.file.filename}`,
     likes: 0,
     dislikes: 0,
     usersLiked: [],
