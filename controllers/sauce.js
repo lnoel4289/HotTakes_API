@@ -49,7 +49,6 @@ exports.getOneSauce = (req, res) => {
 };
 
 exports.createSauce = (req, res) => {
-  console.log(multer.storage);
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   delete sauceObject._userId;
@@ -74,7 +73,7 @@ exports.createSauce = (req, res) => {
   const sauce = new Sauce({
     ...sauceObject,
     userId: req.auth.userId,
-    imageUrl: `https://guarded-tundra-04476-5a7bab2b1d79.herokuapp.com/images/${req.file.filename}`,
+    imageUrl: ``,
     // imageUrl: result,
     likes: 0,
     dislikes: 0,
