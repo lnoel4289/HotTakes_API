@@ -120,7 +120,7 @@ exports.modifySauce = (req, res) => {
   const sauceObject = req.file
     ? {
         ...JSON.parse(req.body.sauce),
-        imageUrl: `https://${req.get("host")}/images/${req.file.filename}`,
+        imageUrl: `http://${req.get("host")}/images/${req.file.filename}`,
       }
     : { ...req.body };
   delete sauceObject._userId;
@@ -143,7 +143,7 @@ exports.modifySauce = (req, res) => {
               const filename = sauce.imageUrl.split("/images")[1];
               fs.unlink(`images/${filename}`, (error) => {
                 if (error) {
-                  console.log(error);
+                  console.log("ahahahaha");
                 }
               });
             }
