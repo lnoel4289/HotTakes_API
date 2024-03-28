@@ -1,6 +1,5 @@
 const Sauce = require("../models/Sauce");
 const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
 
 exports.getAllSauces = (_, res) => {
   Sauce.find()
@@ -53,45 +52,6 @@ exports.createSauce = (req, res) => {
     });
 };
 
-// exports.modifySauce = (req, res) => {
-//   const sauceObject = req.file
-//     ? {
-//         ...JSON.parse(req.body.sauce),
-//         imageUrl: `http://${req.get("host")}/images/${req.file.filename}`,
-//       }
-//     : { ...req.body };
-//   delete sauceObject._userId;
-
-//   Sauce.findOne({ _id: req.params.id })
-//     .then((sauce) => {
-//       if (sauce.userId != req.auth.userId) {
-//         res.status(403).json({ message: "Non-autorisé !" });
-//       } else {
-//         Sauce.updateOne(
-//           { _id: req.params.id },
-//           { ...sauceObject, _id: req.params.id }
-//         )
-//           .then(() => {
-//             res.status(200).json({ message: "Sauce modifiée !" });
-//           })
-//           .catch((error) => res.status(500).json({ error }))
-//           .then(() => {
-//             if (req.file) {
-//               const filename = sauce.imageUrl.split("/images")[1];
-//               fs.unlink(`images/${filename}`, (error) => {
-//                 if (error) {
-//                   console.log(error);
-//                 }
-//               });
-//             }
-//           });
-//       }
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error });
-//     });
-// };
-
 exports.modifySauce = (req, res) => {
   const sauceObject = req.file
     ? {
@@ -113,8 +73,8 @@ exports.modifySauce = (req, res) => {
 
       // Supprimer l'ancienne image de Cloudinary
       if (req.file) {
-        const publicId = sauce.imageUrl.split('/').pop().split('.')[0]; // Récupérer l'ID public de Cloudinary
-        cloudinary.uploader.destroy(publicId, (error, result) => {
+        const publicId = sauce.imageUrl.split("/").pop().split(".")[0]; // Récupérer l'ID public de Cloudinary
+        cloudinary.uploader.destroy(`images/${publicId}`, (error, result) => {
           if (error) {
             return res.status(500).json({ error });
           }
@@ -143,7 +103,7 @@ exports.deleteSauce = (req, res) => {
         res.status(401).json({ message: "Non-autorisé !" });
       } else {
         const publicId = sauce.imageUrl.split("/").pop().split(".")[0];
-        cloudinary.uploader.destroy(publicId, (error, result) => {
+        cloudinary.uploader.destroy(`images/${publicId}`, (error, result) => {
           if (error) {
             return res.status(500).json({ error });
           }
