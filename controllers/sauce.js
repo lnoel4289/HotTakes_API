@@ -33,7 +33,7 @@ exports.createSauce = (req, res) => {
   const sauce = new Sauce({
     ...sauceObject,
     userId: req.auth.userId,
-    imageUrl: `http://${req.get('host')}/images/${req.file.filename}`,
+    imageUrl: req.file.path,
     likes: 0,
     dislikes: 0,
     usersLiked: [],
@@ -41,6 +41,7 @@ exports.createSauce = (req, res) => {
   });
   sauce.save().then(
     () => {
+      console.log(req)
       res.status(201).json({
         message: 'Nouvelle sauce enregistrée !'
       });
