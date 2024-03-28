@@ -1,4 +1,3 @@
-// Middleware traitant le fichier joint par l'utilisateur
 const multer = require("multer");
 
 const MIME_TYPES = {
